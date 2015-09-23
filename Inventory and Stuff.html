@@ -10,21 +10,22 @@
 
 <tw-story></tw-story>
 
-<tw-storydata name="Inventory and Stuff" startnode="1" creator="Twine" creator-version="2.0.8" ifid="EF281B9A-477E-479D-AF93-503FACAA9F25" format="Harlowe" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Start" tags="" position="278,69">(set: $item1 to false)
-(set: $item2 to false)
-(set: $health to &quot;Healthy&quot;)
-(set: $haveMap to false)
-(set: $haveStuff to false)
+<tw-storydata name="Inventory and Stuff" startnode="10" creator="Twine" creator-version="2.0.8" ifid="EF281B9A-477E-479D-AF93-503FACAA9F25" format="Harlowe" options="" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">tw-icon { display:none;}
+tw-passage{background-color: black; color: white; -moz-border-radius: 15px;
+border-radius: 15px; padding: 20px}</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="Start" tags="" position="254,17">Are you a 
+
+[[Man]] 
+
+or a 
+
+[[Woman]]?
+
+(display: &quot;Bottom&quot;)
+</tw-passagedata><tw-passagedata pid="2" name="2" tags="" position="585,55">(set: $location to &quot;Two&quot;)(set:$from to &quot;2&quot;)(display: &quot;Top&quot;)
+(set: $menuStyle to (font: &quot;monospace&quot;) + (text-style: &quot;bold&quot;))
 (font: &quot;monospace&quot;)[Monospace example font]
 (text-colour: &quot;red&quot;)[Text colour example - uses colour not color!]
 (text-style: &quot;bold&quot;)[Bold text]
-
-[[Next-&gt;2]]
-
-(display: &quot;Bottom&quot;)
-</tw-passagedata><tw-passagedata pid="2" name="2" tags="" position="585,55">(set: $menuStyle to (font: &quot;monospace&quot;) + (text-style: &quot;bold&quot;))
-(set: $location to &quot;Two&quot;)
-
 (link: &quot;option 1&quot;)[ $menuStyle[option One text.]]
 
 [Swipe interface to hide]&lt;swipeTag|
@@ -36,15 +37,17 @@ You pickup Item 1 (set: $item1 to true)(set: $haveStuff to true)
 [[Next-&gt;3]]
 
 (display: &quot;Bottom&quot;)
-</tw-passagedata><tw-passagedata pid="3" name="3" tags="" position="417,272">You pick up Item 2 (set: $item2 to true)
+</tw-passagedata><tw-passagedata pid="3" name="3" tags="" position="417,272">(set: $location to &quot;Three&quot;)(set:$from to &quot;3&quot;)(display: &quot;Top&quot;)
+You pick up Item 2 (set: $item2 to true)
 
 You kick your toe! (set: $health to &quot;hurt&quot;)
 
 [[Next-&gt;4]]
 
-(display: &quot;Bottom&quot;)</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="" position="227,203">**Inventory:**
+(display: &quot;Bottom&quot;)</tw-passagedata><tw-passagedata pid="4" name="Inventory" tags="" position="697,199">**You have found:**
 (if: $item1)[Item 1]
-(if: $item2)[Item 2]</tw-passagedata><tw-passagedata pid="5" name="4" tags="" position="417,422">(set: $location to &quot;Four&quot;)
+(if: $item2)[Item 2]</tw-passagedata><tw-passagedata pid="5" name="4" tags="" position="417,422">(set: $location to &quot;Four&quot;)(set:$from to &quot;4&quot;)(display: &quot;Top&quot;)
+
 You made it to somewhere new
 
 You pickup a map! (set: $haveMap to true)
@@ -53,15 +56,85 @@ You pickup a map! (set: $haveMap to true)
 
 (display: &quot;Bottom&quot;)
 
-</tw-passagedata><tw-passagedata pid="6" name="Health" tags="" position="102,202">You are $health</tw-passagedata><tw-passagedata pid="7" name="5" tags="" position="417,572">(set: $location to &quot;Five&quot;)
+</tw-passagedata><tw-passagedata pid="6" name="Health" tags="" position="23,144">You are $health</tw-passagedata><tw-passagedata pid="7" name="5" tags="" position="417,572">(set:$from to &quot;5&quot;)(set: $location to &quot;Five&quot;)(display: &quot;Top&quot;)
 
 You made it to another place
 
+You have found a teleporter! (set: $canTeleport to true)
+
 [[Go somewhere else-&gt;2]]
 
-(display: &quot;Bottom&quot;)</tw-passagedata><tw-passagedata pid="8" name="Bottom" tags="" position="100,327">(display: &quot;Health&quot;)
+or to [[Six-&gt;6]]
+
+(display: &quot;Bottom&quot;)</tw-passagedata><tw-passagedata pid="8" name="Bottom" tags="" position="100,269">
+&lt;hr&gt;
+(if: $isMan or $isWoman)[(if:$isWoman)[You are a Woman] (if:$isMan)[You are a Man]]
+(display: &quot;Health&quot;)
+(if: $haveStuff)[(display: &quot;Inventory&quot;)]
+(if: $canTeleport)[ You can use the [[Teleporter]] ]
+(set: $doorsTally to $doorsTally + 1)
+(set: $experience to $experience + 100)
+
+
+
+</tw-passagedata><tw-passagedata pid="9" name="Map" tags="" position="236,267">The map shows your location as: **$location**
+</tw-passagedata><tw-passagedata pid="10" name="Initialise" tags="" position="112,17">[[Ready?-&gt;Start]]
+{
+(set: $item1 to false)
+(set: $item2 to false)
+(set: $health to &quot;Healthy&quot;)
+(set: $haveMap to false)
+(set: $haveStuff to false)
+(set:$isMan to false)
+(set:$isWoman to false)
+(set:$canTeleport to false)
+(set:$doorsTally to 0)
+(set:$experience to 100)
+(set:$from to &quot;Initialise&quot;)
+}</tw-passagedata><tw-passagedata pid="11" name="Man" tags="" position="441.00019999999995,0">(set: $isMan to true)
+[[Commence your Journey!-&gt;2]]
+(display: &quot;Bottom&quot;)
+</tw-passagedata><tw-passagedata pid="12" name="Woman" tags="" position="275,142">(set: $isWoman to true)
+[[Commence your Journey!-&gt;2]]
+(display: &quot;Bottom&quot;)</tw-passagedata><tw-passagedata pid="13" name="Teleporter" tags="" position="82,394">[[$from&lt;-Back]]
+
+Teleport to:
+[[Restart-&gt;Initialise]] 
+[[Two-&gt;2]]
+[[Three-&gt;3]]
+[[Four-&gt;4]]
+[[Five-&gt;5]]
+[[Six-&gt;6]]
+</tw-passagedata><tw-passagedata pid="14" name="6" tags="" position="417,722">(set: $location to &quot;Six&quot;)(set:$from to &quot;6&quot;)(display: &quot;Top&quot;)
+
+Room 6
+
+{
+(set: $doorClosed to false)
+(set: $outOfAirTime to 12)
+(set: $elapsedTime to 0)
+
+(live: 1000ms)[
+  (if: $doorClosed)[ (stop:) ]
+  (else:)[
+     (set: $elapsedTime to (round: time / 1000) )
+     (set: $outOfAirTime to $outOfAirTime - $elapsedTime)
+     (replace: ?warning)[You have $outOfAirTime seconds left!]
+  ]
+  (if: $outOfAirTime &lt; 0)[
+    (goto: &quot;Dead&quot;)
+    ]
+]
+}    
+[You have limited time left!]&lt;warning|
+(link: &quot;Close Door!&quot;)[(set: $doorClosed to true) You survived! Go back to [[Five-&gt;5]] ]
+(display: &quot;Bottom&quot;)
+
+</tw-passagedata><tw-passagedata pid="15" name="Top" tags="" position="636,357">You have travelled through **$doorsTally** doors and gained **$experience** experience points
 (if: $haveMap)[(display: &quot;Map&quot;)]
-(if: $haveStuff)[(display: &quot;Inventory&quot;)]</tw-passagedata><tw-passagedata pid="9" name="Map" tags="" position="225.0001,328">The map shows your location as: $location</tw-passagedata></tw-storydata>
+&lt;hr&gt;</tw-passagedata><tw-passagedata pid="16" name="Dead" tags="" position="599,602">You Died!
+
+[[Start Again-&gt;Initialise]] </tw-passagedata></tw-storydata>
 
 <script title="Twine engine code" data-main="harlowe">/**
  * @license almond 0.3.0 Copyright (c) 2011-2014, The Dojo Foundation All Rights Reserved.
